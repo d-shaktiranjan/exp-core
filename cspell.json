@@ -1,0 +1,16 @@
+{
+    "words": [
+        "Debata",
+        "npmignore",
+        "nvmrc",
+        "Ranjan",
+        "Shakti",
+        "shaktiranjan"
+    ],
+    "ignorePaths": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "pnpm-lock.yaml",
+        "eslint.config.js"
+    ]
+}
