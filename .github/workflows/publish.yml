@@ -59,6 +59,8 @@ jobs:
   version-check:
     runs-on: ubuntu-latest
     needs: checker
+    outputs:
+      should-publish: ${{ steps.check-version.outputs.should-publish }}
 
     steps:
       # Checkout the repository
@@ -82,20 +84,25 @@ jobs:
 
       # Check if the version has been upgraded
       - name: Check version upgrade
+        id: check-version
         run: |
           latest_version=$(npm show $(jq -r .name package.json) version)
           current_version=$(jq -r .version package.json)
 
-          if [ "$latest_version" == "$current_version" ]; then
-            echo "Version has not changed. Aborting publish."
-            exit 1
+          echo "Latest version: $latest_version"
+          echo "Current version: $current_version"
+
+          if [ "$latest_version" = "$current_version" ]; then
+            echo "No version bump detected. Skipping publish."
+            echo "should-publish=false" >> $GITHUB_OUTPUT
           else
-            echo "Version has been updated. Proceeding with publish."
-          fi
+            echo "Version bump detected. Ready to publish."
+            echo "should-publish=true" >> $GITHUB_OUTPUT
 
   publish:
     needs: [checker, version-check]
-    if: github.ref == 'refs/heads/main'
+    # Only publish if version has changed and we're on the main branch
+    if: needs.version-check.outputs.should-publish == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
