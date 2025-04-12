@@ -59,6 +59,7 @@ jobs:
   version-check:
     runs-on: ubuntu-latest
     needs: checker
+    if: github.ref == 'refs/heads/main'
     outputs:
       should-publish: ${{ steps.check-version.outputs.should-publish }}
 
