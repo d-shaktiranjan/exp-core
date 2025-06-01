@@ -55,7 +55,10 @@
         "auth-request"
     ],
     "author": "Shakti Ranjan Debata <debatashaktiranjan@gmail.com>",
-    "repository": "d-shaktiranjan/exp-core",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/d-shaktiranjan/exp-core.git"
+    },
     "homepage": "https://github.com/d-shaktiranjan/exp-core/blob/main/README.md",
     "license": "MIT",
     "devDependencies": {
