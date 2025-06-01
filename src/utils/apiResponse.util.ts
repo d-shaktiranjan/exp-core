@@ -2,34 +2,42 @@ import { Response } from "express";
 
 const apiResponse = (
     res: Response,
-    message: string,
-    statusCode: number,
-    data: object | null = null,
-    metaData: object | null = null,
-    isSuccess: boolean = true,
-    errors: Record<string, string[]> | null,
-): void => {
+    isSuccess: boolean,
+    options: {
+        message: string;
+        statusCode?: number;
+        data?: object | null;
+        metaData?: object | null;
+        errors?: Record<string, string[]> | null;
+    },
+) => {
     const responseObject = {
         isSuccess,
-        message,
-        ...(metaData && { metaData }),
-        ...(data && { data }),
-        ...(errors && { errors }),
+        message: options.message,
+        ...(options.metaData && { metaData: options.metaData }),
+        ...(options.data && { data: options.data }),
+        ...(options.errors && { errors: options.errors }),
     };
-    res.status(statusCode).json(responseObject);
+    res.status(options.statusCode || (isSuccess ? 200 : 400)).json(
+        responseObject,
+    );
 };
 
 export const successResponse = (
     res: Response,
-    message: string,
-    statusCode: number = 200,
-    data: object | null = null,
-    metaData: object | null = null,
-): void => apiResponse(res, message, statusCode, data, metaData, true, null);
+    options: {
+        message: string;
+        statusCode?: number;
+        data?: object | null;
+        metaData?: object | null;
+    },
+): void => apiResponse(res, true, options);
 
 export const errorResponse = (
     res: Response,
-    message: string,
-    statusCode: number = 400,
-    errors: Record<string, string[]> | null = null,
-): void => apiResponse(res, message, statusCode, null, null, false, errors);
+    options: {
+        message: string;
+        statusCode?: number;
+        errors?: Record<string, string[]> | null;
+    },
+): void => apiResponse(res, false, options);
