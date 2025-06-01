@@ -1,26 +1,26 @@
 import { Response } from "express";
 
+interface ApiResponseOptions {
+    message: string;
+    statusCode: number;
+    data?: object;
+    meta?: object;
+    errors?: Record<string, string[]>;
+}
+
 const apiResponse = (
     res: Response,
     isSuccess: boolean,
-    options: {
-        message: string;
-        statusCode?: number;
-        data?: object | null;
-        metaData?: object | null;
-        errors?: Record<string, string[]> | null;
-    },
+    options: ApiResponseOptions,
 ) => {
     const responseObject = {
         isSuccess,
         message: options.message,
-        ...(options.metaData && { metaData: options.metaData }),
+        ...(options.meta && { meta: options.meta }),
         ...(options.data && { data: options.data }),
         ...(options.errors && { errors: options.errors }),
     };
-    res.status(options.statusCode || (isSuccess ? 200 : 400)).json(
-        responseObject,
-    );
+    res.status(options.statusCode).json(responseObject);
 };
 
 export const successResponse = (
@@ -29,9 +29,12 @@ export const successResponse = (
         message: string;
         statusCode?: number;
         data?: object | null;
-        metaData?: object | null;
+        meta?: object | null;
     },
-): void => apiResponse(res, true, options);
+): void => {
+    if (!options.statusCode) options.statusCode = 200;
+    return apiResponse(res, true, options as ApiResponseOptions);
+};
 
 export const errorResponse = (
     res: Response,
@@ -40,4 +43,7 @@ export const errorResponse = (
         statusCode?: number;
         errors?: Record<string, string[]> | null;
     },
-): void => apiResponse(res, false, options);
+): void => {
+    if (!options.statusCode) options.statusCode = 400;
+    return apiResponse(res, false, options as ApiResponseOptions);
+};
