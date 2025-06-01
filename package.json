@@ -1,6 +1,6 @@
 {
     "name": "exp-core",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Core utilities and middleware for building robust Express applications, including standard API responses, async error handling, request sanitization, and extended request types.",
     "type": "module",
     "main": "./dist/index.cjs",
@@ -55,20 +55,23 @@
         "auth-request"
     ],
     "author": "Shakti Ranjan Debata <debatashaktiranjan@gmail.com>",
-    "repository": "d-shaktiranjan/exp-core",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/d-shaktiranjan/exp-core.git"
+    },
     "homepage": "https://github.com/d-shaktiranjan/exp-core/blob/main/README.md",
     "license": "MIT",
     "devDependencies": {
-        "@eslint/js": "^9.24.0",
-        "@types/express": "^5.0.1",
-        "cspell": "^8.18.1",
+        "@eslint/js": "^9.28.0",
+        "@types/express": "^5.0.2",
+        "cspell": "^9.0.2",
         "dts-bundle-generator": "^9.5.1",
-        "esbuild": "^0.25.2",
-        "eslint": "^9.24.0",
-        "globals": "^16.0.0",
+        "esbuild": "^0.25.5",
+        "eslint": "^9.28.0",
+        "globals": "^16.2.0",
         "prettier": "^3.5.3",
         "typescript": "^5.8.3",
-        "typescript-eslint": "^8.29.1"
+        "typescript-eslint": "^8.33.0"
     },
-    "packageManager": "pnpm@10.6.4"
+    "packageManager": "pnpm@10.11.0"
 }

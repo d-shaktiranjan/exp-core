@@ -1,0 +1,42 @@
+# Ignore build output
+dist/
+build/
+out/
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Coverage and test reports
+coverage/
+*.lcov
+
+# Logs
+logs/
+*.log
+
+# Dependency lock files (optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Public or static assets
+public/
+static/
+
+# Optional: ignore generated client files (e.g. from OpenAPI, Prisma)
+generated/
+prisma/generated/
+
+# IDE and OS-specific
+.vscode/
+.DS_Store
+
+# Optional: ignore everything already ignored by git
+.gitignore
