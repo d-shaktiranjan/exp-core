@@ -1,1 +1,3 @@
-console.log("Hello, world!");
+import { successResponse, errorResponse } from "./utils/apiResponse.util.js";
+
+export { successResponse, errorResponse };
