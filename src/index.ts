@@ -1,1 +1,3 @@
-export * as utils from "./utils/apiResponse.util";
+import { successResponse, errorResponse } from "./utils/apiResponse.util.js";
+
+export { successResponse, errorResponse };
