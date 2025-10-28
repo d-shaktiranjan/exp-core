@@ -29,8 +29,7 @@ const aw = (
     return (req: Request, res: Response, next: NextFunction) => {
         Promise.resolve(requestHandler(req, res, next)).catch((error) => {
             const message = error.message || APP_MESSAGES.SERVER_ERROR;
-            return errorResponse(res, {
-                message,
+            return errorResponse(res, message, {
                 statusCode: error.statusCode || 400,
                 errors: error.errors || null,
             });
